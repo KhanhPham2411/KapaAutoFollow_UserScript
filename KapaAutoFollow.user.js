@@ -23,6 +23,7 @@
 
   if (check_element) {
     var parentElement = findParentElement(check_element);
+    if(!parentElement) return;
 
     var following = getValue("following");
     for (var item of following) {
@@ -112,11 +113,23 @@ function updateList(listId, value) {
 }
 
 function findParentElement(check_element) {
+  if (check_element.tagName == "BODY"){
+    return null;
+  } 
+
   var parentElement = check_element.parentElement;
   if (parentElement.querySelectorAll("a").length > 1) {
     var tag_a = parentElement.querySelectorAll("a");
     for (var element_a of tag_a) {
       if (element_a.href != tag_a[0].href) {
+        
+        for(var child of parentElement.children){
+          if(child.tagName != parentElement.children[0].tagName){
+            // return findParentElement(parentElement);
+            return null;
+          }
+        }
+
         console.log("findParentElement: ", parentElement);
         return parentElement;
       }
@@ -132,10 +145,12 @@ function checkElement() {
     if(element.href.indexOf(window.location.pathname) == -1){
       continue;
     }
+    if(element.innerHTML.indexOf("<img") > -1) { 
+      continue; 
+    }
 
     var outerHtml = element.outerHTML.split(element.innerHTML)[0];
     if (outerHtml.indexOf(window.location.pathname) > -1) {
-      if(element.innerHTML.indexOf("<img") > -1) { continue; }
       console.log("checkElement: ", element);
       check_element = element;
       break;
