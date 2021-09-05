@@ -16,6 +16,9 @@
   "use strict";
   mergeLocalStorageWithSuperValue();
 
+  if(checkNonSupportedDomain()){
+    return;
+  }
   var check_element = checkElement();
 
   if (check_element) {
@@ -30,6 +33,8 @@
       }
     }
 
+    
+
     updateList("following", {
       origin: window.location.origin,
       href: window.location.href,
@@ -41,6 +46,14 @@
 })();
 function namespaceKey() {
   return "@@KapaAutoFollow:";
+}
+function checkNonSupportedDomain(){
+  var domainList = ["google.com"];
+  for(var domain of domainList){
+    if(window.location.origin.indexOf(domain)){
+      return true;
+    }
+  }
 }
 
 function mergeLocalStorageWithSuperValue(){
