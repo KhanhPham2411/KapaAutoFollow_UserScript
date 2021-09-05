@@ -50,7 +50,7 @@ function namespaceKey() {
   return "@@KapaAutoFollow:";
 }
 function checkNonSupportedDomain(){
-  var domainList = ["google.com"];
+  var domainList = ["google.com", "expo.dev"];
   for(var domain of domainList){
     if(window.location.origin.indexOf(domain) > -1){
       return true;
@@ -137,6 +137,10 @@ function findParentElement(check_element) {
   return findParentElement(parentElement);
 }
 function checkElement() {
+  if(window.location.pathname == "/"){
+    return null;
+  }
+
   var tag_a = document.querySelectorAll("a");
   var check_element = null;
   for (var element of tag_a) {
