@@ -20,33 +20,31 @@
     return;
   }
   var check_element = checkElement();
+  if (!check_element) return;
 
-  if (check_element) {
-    var parentElement = findParentElement(check_element);
-    if(!parentElement) return;
+  var parentElement = findParentElement(check_element);
+  if(!parentElement) return;
 
-    var following = getValue("following");
-    for (var item of following) {
-      if(parentElement.outerHTML.indexOf(item.pathname) > -1){
-        if(window.origin == item.origin){
-          return;
-        }
+  var following = getValue("following");
+  for (var item of following) {
+    if(parentElement.outerHTML.indexOf(item.pathname) > -1){
+      if(window.origin == item.origin){
+        return;
       }
     }
-
-    // key: "@@KapaAutoFollow:following"
-    // reset: localStorage.setItem("@@KapaAutoFollow:following", [])
-    // get: localStorage.getItem("@@KapaAutoFollow:following")
-
-    updateList("following", {
-      origin: window.location.origin,
-      href: window.location.href,
-      pathname: window.location.pathname,
-      fullpathname: window.location.origin + window.location.pathname,
-      totalEpisodes: parentElement.childElementCount,
-      title: document.title,
-    });
   }
+
+  // key: "@@KapaAutoFollow:following"
+  // reset: localStorage.setItem("@@KapaAutoFollow:following", [])
+  // get: localStorage.getItem("@@KapaAutoFollow:following")
+  updateList("following", {
+    origin: window.location.origin,
+    href: window.location.href,
+    pathname: window.location.pathname,
+    fullpathname: window.location.origin + window.location.pathname,
+    totalEpisodes: parentElement.childElementCount,
+    title: document.title,
+  });
 })();
 function namespaceKey() {
   return "@@KapaAutoFollow:";
