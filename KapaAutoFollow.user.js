@@ -14,8 +14,10 @@
 
 (function () {
   "use strict";
+
   mergeLocalStorageWithSuperValue();
-  // openWindow();
+  registerListener();
+
   console.log("Kapa Auto Follow");
 
   if(checkNonSupportedDomain()){
@@ -51,6 +53,16 @@
     title: document.title,
   });
 })();
+
+function registerListener(){
+  document.addEventListener('keydown', function (event) {
+    event.preventDefault();
+    // CTRL + ` combo
+    if (event.ctrlKey && event.key === '`') {
+      openWindow();
+    }
+  });
+}
 function openWindow() {
   newWindow = window.open("https://khanhpham2411.github.io/KapaAutoFollow_source/", '_blank', "height=812,width=375,status=yes");  
 }
@@ -166,7 +178,7 @@ function checkElement() {
       continue; 
     }
 
-    var outerHtml = element.outerHTML.split(element.innerHTML)[0];
+    var outerHtml = element.outerHTML.split(">" + element.innerHTML)[0];
     if (outerHtml.indexOf(window.location.pathname) > -1) {
       console.log("checkElement: ", element);
       check_element = element;
