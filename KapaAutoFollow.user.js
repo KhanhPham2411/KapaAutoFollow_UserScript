@@ -33,7 +33,9 @@
       }
     }
 
-    
+    // key: "@@KapaAutoFollow:following"
+    // reset: localStorage.setItem("@@KapaAutoFollow:following", [])
+    // get: localStorage.getItem("@@KapaAutoFollow:following")
 
     updateList("following", {
       origin: window.location.origin,
@@ -41,7 +43,8 @@
       pathname: window.location.pathname,
       fullpathname: window.location.origin + window.location.pathname,
       totalEpisodes: parentElement.childElementCount,
-    }); // "@@KapaAutoFollow:following"
+      title: document.title,
+    });
   }
 })();
 function namespaceKey() {
@@ -50,10 +53,12 @@ function namespaceKey() {
 function checkNonSupportedDomain(){
   var domainList = ["google.com"];
   for(var domain of domainList){
-    if(window.location.origin.indexOf(domain)){
+    if(window.location.origin.indexOf(domain) > -1){
       return true;
     }
   }
+
+  return false;
 }
 
 function mergeLocalStorageWithSuperValue(){
@@ -124,7 +129,12 @@ function checkElement() {
   var tag_a = document.querySelectorAll("a");
   var check_element = null;
   for (var element of tag_a) {
-    if (element.outerHTML.indexOf(window.location.pathname) > -1) {
+    if(element.href.indexOf(window.location.pathname) == -1){
+      continue;
+    }
+
+    var outerHtml = element.outerHTML.split(element.innerHTML)[0];
+    if (outerHtml.indexOf(window.location.pathname) > -1) {
       if(element.innerHTML.indexOf("<img") > -1) { continue; }
       console.log("checkElement: ", element);
       check_element = element;
