@@ -34,6 +34,13 @@
     for (var item of following) {
       if(parentElement.outerHTML.indexOf(item.pathname) > -1){
         if(window.origin == item.origin){
+          item.title = document.title;
+          item.href = window.location.href;
+          item.pathname = window.location.pathname;
+          item.fullpathname =  window.location.origin + window.location.pathname;
+          item.totalEpisodes = parentElement.childElementCount;
+          setValue("following", following);
+
           return;
         }
       }
@@ -53,7 +60,9 @@
     title: document.title,
   });
 })();
+function updateFollowing(oldHref, newHref){
 
+}
 function registerListener(){
   document.addEventListener('keydown', function (event) {
     event.preventDefault();
