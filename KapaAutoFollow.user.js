@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Kapa Auto Follow
 // @namespace    http://tampermonkey.net/
-// @version      3.0.2
+// @version      3.0.3
 // @description  Kapa Auto Follow to any platform, mostly film platform
 // @author       Kapa
 // @include      *
