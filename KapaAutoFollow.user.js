@@ -43,6 +43,7 @@
     pathname: window.location.pathname,
     fullpathname: window.location.origin + window.location.pathname,
     totalEpisodes: parentElement.childElementCount,
+    hostname: window.location.hostname,
     title: document.title,
   });
 })();
